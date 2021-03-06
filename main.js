@@ -1,47 +1,49 @@
-var cookies = 0;
+var score = 0;
+var clickingPower = 1;
 
-function cookieClick(number){
-    cookies = cookies + number;
-    document.getElementById("cookies").innerHTML = cookies;
-};
-
+var cursorCost = 15;
 var cursors = 0;
+var grandmaCost = 100;
+var grandmas = 0;
 
-function buyCursor(){
-    var cursorCost = Math.floor(10 * Math.pow(1.1,cursors));     //works out the cost of this cursor
-    if(cookies >= cursorCost){                                   //checks that the player can afford the cursor
-        cursors = cursors + 1;                                   //increases number of cursors
-    	cookies = cookies - cursorCost;                          //removes the cookies spent
-        document.getElementById('cursors').innerHTML = cursors;  //updates the number of cursors for the user
-        document.getElementById('cookies').innerHTML = cookies;  //updates the number of cookies for the user
-    };
-    var nextCost = Math.floor(10 * Math.pow(1.1,cursors));       //works out the cost of the next cursor
-    document.getElementById('cursorCost').innerHTML = nextCost;  //updates the cursor cost for the user
-};
+function buyCursor() {
+  if (score >= cursorCost) {
+    score = score - cursorCost;
+    cursors = cursors + 1;
+    cursorCost = Math.round(cursorCost * 1.15);
 
-window.setInterval(function(){
-
-	cookieClick(cursors);
-
-}, 1000);
-
-var save = {
-    cookies: cookies,;
-    cursors: cursors,;
-    prestige: prestige;
-};
-
-localStorage.setItem("save",JSON.stringify(save));
-
-var savegame = JSON.parse(localStorage.getItem("save"));
-if (typeof savegame.cookies !== "undefined") cookies = savegame.cookies;
-
-//localStorage.removeItem("save") put into button to delete save
-
-function prettify(input){
-    var output = Math.round(input * 1000000)/1000000;
-	return output;
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("cursorcost").innerHTML = cursorCost;
+    document.getElementById("cursors").innerHTML = cursors;
+    updateScorePerSecond();
+  }
 }
 
-//And you use it by calling it whenever you need to present a number to the player - for example:
-document.getElementById('cookies').innerHTML = prettify(cookies);
+function buyGrandma() {
+  if (score >= grandmaCost) {
+    score = score - grandmaCost;
+    grandmas = grandmas + 1;
+    grandmaCost = Math.round(grandmaCost * 1.15);
+
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("grandmacost").innerHTML = grandmaCost;
+    document.getElementById("grandmas").innerHTML = grandmas;
+    updateScorePerSecond();
+  }
+}
+
+function addToScore(amount) {
+  score = score + amount;
+  document.getElementById("score").innerHTML = score;
+}
+
+function updateScorePerSecond() {
+  scorePerSecond = cursors + grandmas * 5;
+  document.getElementById("scorepersecond").innerHTML = scorePerSecond;
+}
+
+setInterval(function() {
+  score = score + cursors;
+  score = score + grandmas * 5;
+  document.getElementById("score").innerHTML = score;
+}, 1000); // 1000ms = 1 second

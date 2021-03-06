@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!---
 		<link rel="stylesheet" type="text/css" href="interface.css" />
+		--->
 		<title>Incremental Game One</title>
+		<!---
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<link rel="manifest" href="/site.webmanifest">
+		--->
 	</head>
 
 	<body>
-		<button onclick="cookieClick(1)">Click Me!</button>
-		<br />
-		Cookies: <span id="cookies">0</span>
-		<br />
-		<button onclick="buyCursor()">Buy Cursor</button>
-		<br />
-		Cursors: <span id="cursors">0</span>
-		<br />
-		Cursor Cost: <span id="cursorCost">10</span>
+		<span id="score">0</span> cats<br>
+		<span id="scorepersecond">0</span> cats per second
+
+		<img src="images/cat.png" height="256px" width="256px" onclick="addToScore(clickingPower)">
+
+		<button onclick="buyCursor()">Cursor [<span id="cursorcost">15</span>] -- <span id="cursors">0</span></button>
+		<button onclick="buyGrandma()">Grandma [<span id="grandmacost">100</span>] -- <span id="grandmas">0</span></button>
+
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
