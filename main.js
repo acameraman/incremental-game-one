@@ -46,4 +46,6 @@ setInterval(function() {
   score = score + cursors;
   score = score + grandmas * 5;
   document.getElementById("score").innerHTML = score;
+
+  document.title = score + " cats - Cat Clicker";
 }, 1000); // 1000ms = 1 second
