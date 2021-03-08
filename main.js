@@ -5,6 +5,8 @@ var cursorCost = 15;
 var cursors = 0;
 var grandmaCost = 100;
 var grandmas = 0;
+var ovenCost = 1000;
+var ovens = 0;
 
 function buyCursor() {
   if (score >= cursorCost) {
@@ -32,19 +34,33 @@ function buyGrandma() {
   }
 }
 
+function buyOven() {
+  if (score >= ovenCost) {
+    score = score - ovenCost;
+    ovens = ovens + 1;
+    ovenCost = Math.round(ovenCost * 1.15);
+
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("ovencost").innerHTML = ovenCost;
+    document.getElementById("ovens").innerHTML = ovens;
+    updateScorePerSecond();
+  }
+}
+
 function addToScore(amount) {
   score = score + amount;
   document.getElementById("score").innerHTML = score;
 }
 
 function updateScorePerSecond() {
-  scorePerSecond = cursors + grandmas * 5;
+  scorePerSecond = cursors + grandmas * 5 + ovens * 70;
   document.getElementById("scorepersecond").innerHTML = scorePerSecond;
 }
 
 setInterval(function() {
   score = score + cursors;
   score = score + grandmas * 5;
+  score = score + ovens * 70;
   document.getElementById("score").innerHTML = score;
 
   document.title = score + " cats - Cat Clicker";

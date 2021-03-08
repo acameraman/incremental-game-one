@@ -8,9 +8,12 @@
 		<meta name="keywords" content="Cat,Clicker,CatClicker,Cat Clicker,game,video game,incremental game,idle game,incremental,idle"/>
 		<meta name="author" content="Alex Camera"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<!--Links to seperate css sheet-->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
+
 		<title>Cat Clicker</title>
-		<!---
+		<!---Favicon, icons, and site manifest
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -19,18 +22,61 @@
 	</head>
 
 	<body>
-		<div class="scoreContainer">
-			<span id="score">0</span> cats<br>
-			<span id="scorepersecond">0</span> cats per second
+		<div class="sectionLeft">
+			<center>
+				<div class="scoreContainer unselectable">
+					<span id="score">0</span> cats<br>
+					<span id="scorepersecond">0</span> cats per second
+				</div>
+				<br>
+				<div class="clickerContainer unselectable">
+					<img src="images/cat.png" tabindex="1" alt="A white cat curled on a leg, sleeping" height="256px" width="256px" onclick="addToScore(clickingPower)">
+				</div>
+			</center>
+
+			<div class="sectionFooter">
+				<h5>Cats Clicker</h5>
+			</div>
 		</div>
 
-		<img src="images/cat.png" tabindex="1" alt="A white cat curled on a leg, sleeping" height="256px" width="256px" onclick="addToScore(clickingPower)">
-
-		<div class="storeContainer">
+		<div class="sectionRight">
+			<table class="shopButton unselectable" onclick="buyCursor()">
+				<tr>
+					<td id="image"><img src="images/cursor.png"></td>
+					<td id="nameAndCost">
+						<p>Cursor</p>
+						<p><span id="cursorcost">15</span> cats</p>
+					</td>
+					<td id="amount"><span id="cursors">0</span></td>
+				</tr>
+			</table>
+			<table class="shopButton unselectable" onclick="buyGrandma()">
+				<tr>
+					<td id="image"><img src="images/grandma.png"></td>
+					<td id="nameAndCost">
+						<p>Grandma</p>
+						<p><span id="grandmacost">100</span> grandmas</p>
+					</td>
+					<td id="amount"><span id="grandmas">0</span></td>
+				</tr>
+			</table>
+			<table class="shopButton unselectable" onclick="buyOven()">
+				<tr>
+					<td id="image"><img src="images/oven.png"></td>
+					<td id="nameAndCost">
+						<p>Oven</p>
+						<p><span id="ovencost">100</span> ovens</p>
+					</td>
+					<td id="amount"><span id="ovens">0</span></td>
+				</tr>
+			</table>
+			<!--
 			<button onclick="buyCursor()">Cursor [<span id="cursorcost">15</span>] -- <span id="cursors">0</span></button>
 			<button onclick="buyGrandma()">Grandma [<span id="grandmacost">100</span>] -- <span id="grandmas">0</span></button>
+			-->
 		</div>
 
+		<!--Links to seperate js file to keep this neat-->
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
