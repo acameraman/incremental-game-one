@@ -7,7 +7,7 @@
 		<meta name="description" content="Cat Clicker is an incremental browser video game. It was developed by indie game developer Alex Camera."/>
 		<meta name="keywords" content="Cat,Clicker,CatClicker,Cat Clicker,game,video game,incremental game,idle game,incremental,idle"/>
 		<meta name="author" content="Alex Camera"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
 
 		<!--Links to seperate css sheet-->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
@@ -30,12 +30,14 @@
 				</div>
 				<br>
 				<div class="clickerContainer unselectable">
-					<img src="images/cat.png" tabindex="1" alt="A white cat curled on a leg, sleeping" height="256px" width="256px" onclick="addToScore(clickingPower)">
+					<img src="images/cat.png"	tabindex="1" alt="A white cat curled on a leg, sleeping" height="256px"	width="256px"	onclick="addToScore(clickingPower)">
 				</div>
+				<button onclick="saveGame();">Save Game</button>
 			</center>
 
 			<div class="sectionFooter">
-				<h5>Cats Clicker</h5>
+				<h5>Cat Clicker</h5>
+				<button onclick="resetGame();">Reset Game</button>
 			</div>
 		</div>
 
@@ -55,7 +57,7 @@
 					<td id="image"><img src="images/grandma.png"></td>
 					<td id="nameAndCost">
 						<p>Grandma</p>
-						<p><span id="grandmacost">100</span> grandmas</p>
+						<p><span id="grandmacost">100</span> cats</p>
 					</td>
 					<td id="amount"><span id="grandmas">0</span></td>
 				</tr>
@@ -65,18 +67,14 @@
 					<td id="image"><img src="images/oven.png"></td>
 					<td id="nameAndCost">
 						<p>Oven</p>
-						<p><span id="ovencost">1000</span> ovens</p>
+						<p><span id="ovencost">1000</span> cats</p>
 					</td>
 					<td id="amount"><span id="ovens">0</span></td>
 				</tr>
 			</table>
-			<!--
-			<button onclick="buyCursor()">Cursor [<span id="cursorcost">15</span>] -- <span id="cursors">0</span></button>
-			<button onclick="buyGrandma()">Grandma [<span id="grandmacost">100</span>] -- <span id="grandmas">0</span></button>
-			-->
 		</div>
 
-		<!--Links to seperate js file to keep this neat-->
+		<!--Links to seperate js file-->
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
