@@ -73,8 +73,8 @@
 }
 
 .unselectable {
-  -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none; /* if not using a chromium browser*/
+  -webkit-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
