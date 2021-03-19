@@ -1,24 +1,90 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<html lang="en">
-		<meta charset="utf-8"/>
-		<meta name="title" content="Cat Clicker"/>
-		<meta name="description" content="Cat Clicker is an incremental browser video game. It was developed by indie game developer Alex Camera."/>
-		<meta name="keywords" content="Cat,Clicker,CatClicker,Cat Clicker,game,video game,incremental game,idle game,incremental,idle"/>
-		<meta name="author" content="Alex Camera"/>
-		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
-
-		<!--Links to seperate css sheet-->
-		<link rel="stylesheet" type="text/css" href="interface.css" />
-
 		<title>Cat Clicker</title>
-		<!---Favicon, icons, and site manifest
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-		<link rel="manifest" href="/site.webmanifest">
-		--->
+
+		<style>
+			.sectionLeft {
+		  	float: left;
+		  	width: 80%;
+			}
+
+			.sectionRight {
+		  	float: right;
+		  	width: 20%;
+			}
+
+			.scoreContainer {
+		  	background-color: rgb(238,238,238,0.6);
+		  	width: 50%;
+		  	padding: 10px;
+		  	border-radius: 10px;
+		  	font-size: 24px;
+		  	font-weight: bold;
+			}
+
+			.clickerContainer img {
+		  	position: relative;
+		  	transition: all .2s ease-in-out;
+			}
+
+			.clickerContainer img:hover {
+		  	transform: scale(1.10);
+			}
+
+			.clickerContainer img:active {
+		  	transform: scale(0.99);
+			}
+
+			.shopButton {
+		  	background-color: #b5b5b5;
+		  	transition: all .2s ease-in-out;
+		  	border-radius: 10px;
+		  	width: 100%;
+		  	margin: 10px 0px 10px 0px;
+			}
+
+			.shopButton:hover {
+		  	background-color: #c7c7c7;
+		  	transition: all .2s ease-in-out;
+			}
+
+			.shopButton #image {
+		  	width: 25%;
+			}
+
+			.shopButton img {
+		  	height: 64px;
+		  	width: 64px;
+			}
+
+			.shopButton #nameAndCost p {
+		  	margin: 0px;
+		  	width: 60%;
+			}
+
+			.shopButton #nameAndCost p:first-of-type {
+		  	font-size: 24px;
+			}
+
+			.shopButton #amount {
+		  	font-size: 48px;
+		  	color: #595959;
+		  	font-family: roboto;
+		  	width: 15%;
+			}
+
+			.sectionFooter {
+		  	margin-top: 20%;
+			}
+
+			.unselectable {
+		  	-moz-user-select: none;
+		  	-webkit-user-select: none;
+		  	-ms-user-select: none;
+		  	user-select: none;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -32,7 +98,6 @@
 				<div class="clickerContainer unselectable">
 					<img src="images/cat.png"	tabindex="1" alt="A white cat curled on a leg, sleeping" height="256px"	width="256px"	onclick="addToScore(clickingPower)">
 				</div>
-				<button onclick="saveGame();">Save Game</button>
 			</center>
 
 			<div class="sectionFooter">
@@ -74,7 +139,138 @@
 			</table>
 		</div>
 
-		<!--Links to seperate js file-->
-		<script type="text/javascript" src="main.js"></script>
+		<script>
+			var score = 0;
+			var clickingPower = 2;
+
+			var cursorCost = 15;
+			var cursors = 0;
+			var grandmaCost = 100;
+			var grandmas = 0;
+			var ovenCost = 1000;
+			var ovens = 0;
+
+			function buyCursor() {
+			  if (score >= cursorCost) {
+			    score = score - cursorCost;
+			    cursors = cursors + 1;
+			    cursorCost = Math.round(cursorCost * 1.15);
+
+			    document.getElementById("score").innerHTML = score;
+			    document.getElementById("cursorcost").innerHTML = cursorCost;
+			    document.getElementById("cursors").innerHTML = cursors;
+			    updateScorePerSecond();
+			  }
+			}
+
+			function buyGrandma() {
+			  if (score >= grandmaCost) {
+			    score = score - grandmaCost;
+			    grandmas = grandmas + 1;
+			    grandmaCost = Math.round(grandmaCost * 1.15);
+
+			    document.getElementById("score").innerHTML = score;
+			    document.getElementById("grandmacost").innerHTML = grandmaCost;
+			    document.getElementById("grandmas").innerHTML = grandmas;
+			    updateScorePerSecond();
+			  }
+			}
+
+			function buyOven() {
+			  if (score >= ovenCost) {
+			    score = score - ovenCost;
+			    ovens = ovens + 1;
+			    ovenCost = Math.round(ovenCost * 1.15);
+
+			    document.getElementById("score").innerHTML = score;
+			    document.getElementById("ovencost").innerHTML = ovenCost;
+			    document.getElementById("ovens").innerHTML = ovens;
+			    updateScorePerSecond();
+			  }
+			}
+
+			function addToScore(amount) {
+			  score = score + amount;
+			  document.getElementById("score").innerHTML = score;
+			}
+
+			function updateScorePerSecond() {
+			  scorePerSecond = cursors + grandmas * 5 + ovens * 70;
+			  document.getElementById("scorepersecond").innerHTML = scorePerSecond;
+			}
+
+			function loadGame() {
+			  var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+			  if (typeof savedGame.score !== "undefined") score = savedGame.score;
+			  if (typeof savedGame.clickingPower !== "undefined") clickingPower = savedGame.clickingPower;
+			  if (typeof savedGame.cursorCost !== "undefined") cursorCost = savedGame.cursorCost;
+			  if (typeof savedGame.cursors !== "undefined") cursors = savedGame.cursors;
+			  if (typeof savedGame.grandmaCost !== "undefined") grandmaCost = savedGame.grandmaCost;
+			  if (typeof savedGame.grandmas !== "undefined") grandmas = savedGame.grandmas;
+			  if (typeof savedGame.ovenCost !== "undefined") ovenCost = savedGame.ovenCost;
+			  if (typeof savedGame.ovens !== "undefined") ovens = savedGame.ovens;
+			}
+
+			// Everything that is saved when the game saves is stored as a JSON string in localStorage
+			function saveGame() {
+			  var gameSave = {
+			    score: score,
+			    clickingPower: clickingPower,
+			    cursorCost: cursorCost,
+			    cursors: cursors,
+			    grandmaCost: grandmaCost,
+			    grandmas: grandmas,
+			    ovenCost: ovenCost,
+			    ovens: ovens
+			  };
+			  localStorage.setItem("gameSave", JSON.stringify(gameSave));
+			}
+
+			// Resets your game
+			function resetGame() {
+			  if (confirm("Are you sure you want to reset your game?")) {
+			    var gameSave = ();
+			    localStorage.setItem("gameSave", JSON.stringify(gameSave));
+			    location.reload();
+			  }
+			}
+
+			// Parses and loads a previous save's JSON string when page is opened //
+			window.onload = function() {
+			  loadGame();
+			  updateScorePerSecond();
+			  document.getElementById("score").innerHTML = score;
+			  document.getElementById("cursorcost").innerHTML = cursorCost;
+			  document.getElementById("cursors").innerHTML = cursors;
+			  document.getElementById("grandmacost").innerHTML = grandmaCost;
+			  document.getElementById("grandmas").innerHTML = grandmas;
+			  document.getElementById("ovencost").innerHTML = ovenCost;
+			  document.getElementById("ovens").innerHTML = ovens;
+			};
+
+			// Calculates score //
+			setInterval(function() {
+			  score = score + cursors;
+			  score = score + grandmas * 5;
+			  score = score + ovens * 70;
+			  document.getElementById("score").innerHTML = score;
+
+			  // Adds and updates the score in the browser tab every second //
+			  document.title = score + " cats - Cat Clicker";
+			}, 1000); // 1000ms = 1 second //
+
+			// Saves the game every 30 seconds //
+			setInterval(function() {
+			  saveGame();
+			}, 30000); // 30000ms = 30 seconds //
+
+			// Saves game when ctrl + s is pressed, instead of the browser's default shortcut //
+			document.addEventListener("keydown", function(event) {
+			  if(event.ctrlKey && event.which == 83) { // ctrl + s) //
+			    event.preventDefault();
+			    saveGame();
+			  }
+			}, false);
+		</script>
 	</body>
 </html>
